@@ -1,18 +1,18 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
-using TMPro; // Подключаем TextMeshPro
+using TMPro; // ?????????? TextMeshPro
 
 public class RegistrationManager : MonoBehaviour
 {
-    public TMP_InputField usernameField; // Поле ввода username
-    public TMP_InputField emailField; // Поле ввода email
-    public TMP_InputField passwordField; // Поле ввода password
-    public TextMeshProUGUI warningText; // Текст для отображения ошибок (TextMeshPro)
-    public string checkUserUrl = "http://yourserver.com/api/check_user"; // URL для проверки
-    public string registerUrl = "http://yourserver.com/api/register_user"; // URL для регистрации
+    public TMP_InputField usernameField; // ???? ????? username
+    public TMP_InputField emailField; // ???? ????? email
+    public TMP_InputField passwordField; // ???? ????? password
+    public TextMeshProUGUI warningText; // ????? ??? ??????????? ?????? (TextMeshPro)
+    public string checkUserUrl = "http://yourserver.com/api/check_user"; // URL ??? ????????
+    public string registerUrl = "http://yourserver.com/api/register_user"; // URL ??? ???????????
 
-    // Метод для проверки username и email через JSON
+    // ????? ??? ???????? username ? email ????? JSON
     public void CheckUser()
     {
         string username = usernameField.text;
@@ -21,7 +21,7 @@ public class RegistrationManager : MonoBehaviour
         StartCoroutine(SendCheckRequest(username, email));
     }
 
-    // Корутина для отправки JSON-запроса на проверку пользователя
+    // ???????? ??? ???????? JSON-??????? ?? ???????? ????????????
     private IEnumerator SendCheckRequest(string username, string email)
     {
         var jsonData = new UserData
@@ -31,6 +31,8 @@ public class RegistrationManager : MonoBehaviour
         };
 
         string json = JsonUtility.ToJson(jsonData);
+
+        Debug.Log(json);
 
         UnityWebRequest request = new UnityWebRequest(checkUserUrl, "POST");
         request.SetRequestHeader("Content-Type", "application/json");
@@ -43,34 +45,35 @@ public class RegistrationManager : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.LogError("Ошибка запроса: " + request.error);
-            warningText.text = "Ошибка соединения с сервером.";
+            Debug.LogError("?????? ???????: " + request.error);
+            warningText.text = "?????? ?????????? ? ????????.";
         }
         else
         {
-            // Обработка ответа от сервера
+            // ????????? ?????? ?? ???????
             ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
 
-            if (response.username_free || response.email_free)
+            Debug.Log(request.downloadHandler.text);
+            Debug.Log(response.email + " " + response.login);
+            if (response.login == "False" || response.email == "False")
             {
-                // Показываем предупреждение, если что-то занято
-                warningText.text = "Username или email уже заняты.";
+                warningText.text = "Username ??? email ??? ??????.";
             }
             else
             {
-                // Если всё в порядке, регистрируем пользователя
                 RegisterUser(usernameField.text, emailField.text, passwordField.text);
             }
+
         }
     }
 
-    // Метод для регистрации нового пользователя через POST-запрос формы
+    // ????? ??? ??????????? ?????? ???????????? ????? POST-?????? ?????
     public void RegisterUser(string username, string email, string password)
     {
         StartCoroutine(SendRegisterRequest(username, email, password));
     }
 
-    // Корутина для отправки запроса формы на регистрацию
+    // ???????? ??? ???????? ??????? ????? ?? ???????????
     private IEnumerator SendRegisterRequest(string username, string email, string password)
     {
         WWWForm form = new WWWForm();
@@ -84,18 +87,18 @@ public class RegistrationManager : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.LogError("Ошибка запроса: " + request.error);
-            warningText.text = "Ошибка при регистрации.";
+            Debug.LogError("?????? ???????: " + request.error);
+            warningText.text = "?????? ??? ???????????.";
         }
         else
         {
-            // Регистрация прошла успешно
-            Debug.Log("Регистрация прошла успешно!");
-            warningText.text = "Регистрация завершена.";
+            // ??????????? ?????? ???????
+            Debug.Log("??????????? ?????? ???????!");
+            warningText.text = "??????????? ?????????.";
         }
     }
 
-    // Структура данных для отправки в проверке username и email (JSON)
+    // ????????? ?????? ??? ???????? ? ???????? username ? email (JSON)
     [System.Serializable]
     public class UserData
     {
@@ -103,11 +106,13 @@ public class RegistrationManager : MonoBehaviour
         public string email;
     }
 
-    // Структура ответа от сервера
+    // ????????? ?????? ?? ???????
     [System.Serializable]
     public class ServerResponse
     {
-        public bool username_free;
-        public bool email_free;
+        public string email;  // ???? ?????? ?????????? "True" ??? "False" ? ???? ??????
+        public string login;
     }
+
+
 }
