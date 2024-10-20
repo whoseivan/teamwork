@@ -8,7 +8,6 @@ public class RegistrationManager : MonoBehaviour
     public TMP_InputField usernameField; // ???? ????? username
     public TMP_InputField emailField; // ???? ????? email
     public TMP_InputField passwordField; // ???? ????? password
-    public TextMeshProUGUI warningText; // ????? ??? ??????????? ?????? (TextMeshPro)
     public string checkUserUrl = "http://yourserver.com/api/check_user"; // URL ??? ????????
     public string registerUrl = "http://yourserver.com/api/register_user"; // URL ??? ???????????
 
@@ -46,7 +45,6 @@ public class RegistrationManager : MonoBehaviour
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.LogError("?????? ???????: " + request.error);
-            warningText.text = "?????? ?????????? ? ????????.";
         }
         else
         {
@@ -57,7 +55,7 @@ public class RegistrationManager : MonoBehaviour
             Debug.Log(response.email + " " + response.login);
             if (response.login == "False" || response.email == "False")
             {
-                warningText.text = "Username ??? email ??? ??????.";
+
             }
             else
             {
@@ -76,25 +74,34 @@ public class RegistrationManager : MonoBehaviour
     // ???????? ??? ???????? ??????? ????? ?? ???????????
     private IEnumerator SendRegisterRequest(string username, string email, string password)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("login", username);
-        form.AddField("email", email);
-        form.AddField("password", password);
+        var jsonData = new RegistrationData
+        {
+            login = username,
+            email = email,
+            password = password
+        };
 
-        UnityWebRequest request = UnityWebRequest.Post(registerUrl, form);
+        string json = JsonUtility.ToJson(jsonData);
+
+        Debug.Log(json);
+
+        UnityWebRequest request = new UnityWebRequest(registerUrl, "POST");
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
 
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.LogError("?????? ???????: " + request.error);
-            warningText.text = "?????? ??? ???????????.";
+            Debug.LogError("Error: " + request.error);
         }
         else
         {
             // ??????????? ?????? ???????
-            Debug.Log("??????????? ?????? ???????!");
-            warningText.text = "??????????? ?????????.";
+            Debug.Log("Success!");
         }
     }
 
@@ -114,5 +121,11 @@ public class RegistrationManager : MonoBehaviour
         public string login;
     }
 
-
+    [System.Serializable]
+    public class RegistrationData
+    {
+        public string login;
+        public string email;
+        public string password;
+    }
 }

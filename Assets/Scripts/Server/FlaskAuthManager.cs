@@ -5,7 +5,7 @@ using TMPro;
 
 public class FlaskAuthManager : MonoBehaviour
 {
-    public string loginUrl = "http://195.2.79.241:5000/auth/login";  // авторизация
+    public string authUrl = "http://195.2.79.241:5000/api/user_authorize";  // авторизация
     public string apiUrl = "http://195.2.79.241:5000/api/data";      // защищённое API
 
     public TMP_InputField loginInput;   
@@ -27,33 +27,45 @@ public class FlaskAuthManager : MonoBehaviour
 
     private IEnumerator LoginRequest(string login, string password)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("login", login);  
-        form.AddField("password", password);
-
-        using (UnityWebRequest request = UnityWebRequest.Post(loginUrl, form))
+        var authData = new AuthData
         {
-            yield return request.SendWebRequest();
+            login = login,
+            password = password
+        };
 
-            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        string json = JsonUtility.ToJson(authData);
+
+        Debug.Log(json);
+
+        UnityWebRequest request = new UnityWebRequest(authUrl, "POST");
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError("Ошибка: " + request.error);
+        }
+        else
+        {
+            // ????????? ?????? ?? ???????
+            ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
+
+            Debug.Log(request.downloadHandler.text);
+            Debug.Log(response.login + " " + response.password);
+            if (response.login == "False" || response.password == "False")
             {
-                resultText.text = "Ошибка авторизации: " + request.error;
+
             }
             else
             {
-                resultText.text = "Успешная авторизация!";
-                
                 GetApiData();
-                string setCookieHeader = request.GetResponseHeader("Set-Cookie");
-                //if (!string.IsNullOrEmpty(setCookieHeader))
-                //{
-                //    Debug.Log("Куки сохранены: " + savedCookies);
-                //}
-                //else
-                //{
-                //    resultText.text = "Ошибка: не удалось сохранить куки.";
-                //}
             }
+
         }
     }
 
@@ -61,10 +73,6 @@ public class FlaskAuthManager : MonoBehaviour
     {
         using (UnityWebRequest request = UnityWebRequest.Get(apiUrl))
         {
-            if (!string.IsNullOrEmpty(savedCookies))
-            {
-                request.SetRequestHeader("Cookie", savedCookies);
-            }
 
             yield return request.SendWebRequest();
 
@@ -78,5 +86,19 @@ public class FlaskAuthManager : MonoBehaviour
                 Debug.Log("Ответ API: " + request.downloadHandler.text);
             }
         }
+    }
+
+    [System.Serializable]
+    public class AuthData
+    {
+        public string login;
+        public string password;
+    }
+
+    [System.Serializable]
+    public class ServerResponse
+    {
+        public string login;
+        public string password;
     }
 }

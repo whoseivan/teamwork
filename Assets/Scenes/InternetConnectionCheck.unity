@@ -286,7 +286,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e15adc97e994c4a14b2a7f4766d9704c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: https://www.google.com
+  url: http://195.2.79.241:5000/
   sceneName: AuthRegistrScene
   resultText: {fileID: 684467071}
 --- !u!4 &800262997
@@ -463,10 +463,14 @@ MonoBehaviour:
   usernameInputField: {fileID: 0}
   passwordInputField: {fileID: 0}
   registerButton: {fileID: 0}
+  registration: 0
   validSprite: {fileID: 21300000, guid: c347a1bebcd4249e9b209f92698986a0, type: 3}
   invalidSprite: {fileID: 21300000, guid: 449916bc304834b4fa2fd04852371245, type: 3}
   shakeDuration: 0.5
   shakeMagnitude: 0.1
+  usingEmail: 0
+  usingUsername: 0
+  usingPassword: 0
 --- !u!114 &3032014710859425177
 MonoBehaviour:
   m_ObjectHideFlags: 0
