@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   authUrl: http://195.2.79.241:5000/api/user_authorize
-  apiUrl: http://195.2.79.241:5000/api/user_wallets
+  apiUrl: http://195.2.79.241:5000/api/userWallets
   loginInput: {fileID: 2171804197105739070}
   passwordInput: {fileID: 7743836843509044873}
   resultText: {fileID: 1293422846}
