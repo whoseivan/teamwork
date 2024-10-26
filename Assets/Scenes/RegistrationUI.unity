@@ -489,6 +489,7 @@ MonoBehaviour:
   passwordField: {fileID: 3389841770310711919}
   checkUserUrl: http://195.2.79.241:5000/api/check_user
   registerUrl: http://195.2.79.241:5000/api/user_register
+  walletsUIName: WalletsUI
 --- !u!114 &1853350489 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8622696327252642281, guid: d6b6763b7378e44b7b062c6650b80681, type: 3}

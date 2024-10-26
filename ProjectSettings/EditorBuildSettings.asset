@@ -14,6 +14,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/AuthorizationUI.unity
     guid: fc1b3e8f7668340ed86f135b2735b910
+  - enabled: 1
+    path: Assets/Scenes/WalletsUI.unity
+    guid: dc1f488a7f18e2943bce3d388fd20704
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: adf9244c45454d344a9791106178eb10, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: cac6ec16f1113454094b537013cc1faa, type: 2}

@@ -2,17 +2,23 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class FlaskAuthManager : MonoBehaviour
 {
+    [Header("URLs")]
     public string authUrl = "http://195.2.79.241:5000/api/user_authorize";  // авторизация
     public string apiUrl = "http://195.2.79.241:5000/api/data";      // защищённое API
-
+    
+    [Header("UI elements")]
     public TMP_InputField loginInput;   
     public TMP_InputField passwordInput; 
     public TMP_Text resultText;          
 
-    private string savedCookies; 
+    private string savedCookies;
+
+    [Header("Scene Managments")]
+    public string walletsUIName;
 
     public void Login()
     {
@@ -63,7 +69,8 @@ public class FlaskAuthManager : MonoBehaviour
             }
             else
             {
-                GetApiData();
+                SceneManager.LoadScene(walletsUIName);
+                //GetApiData();
             }
 
         }

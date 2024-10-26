@@ -597,6 +597,7 @@ MonoBehaviour:
   loginInput: {fileID: 2171804197105739070}
   passwordInput: {fileID: 7743836843509044873}
   resultText: {fileID: 1293422846}
+  walletsUIName: WalletsUI
 --- !u!4 &1688008542
 Transform:
   m_ObjectHideFlags: 0
