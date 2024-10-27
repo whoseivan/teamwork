@@ -14,9 +14,9 @@ public class ShowPassword : MonoBehaviour
         isShowed = !isShowed;
 
         if (!isShowed)
-            inputField.contentType = TMP_InputField.ContentType.Standard;
-        if (isShowed)
             inputField.contentType = TMP_InputField.ContentType.Password;
+        if (isShowed)
+            inputField.contentType = TMP_InputField.ContentType.Standard;
 
         inputField.ForceLabelUpdate();
     }
