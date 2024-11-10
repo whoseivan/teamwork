@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class FlaskAuthManager : MonoBehaviour
 {
     [Header("URLs")]
-    public string authUrl = "http://195.2.79.241:5000/api/user_authorize";  // авторизация
-    public string apiUrl = "http://195.2.79.241:5000/api/data";      // защищённое API
+    public string authUrl = "http://195.2.79.241:5000/api_app/user_authorize";  // авторизация
+    public string apiUrl = "http://195.2.79.241:5000/api_app/data";      // защищённое API
     
     [Header("UI elements")]
     public TMP_InputField loginInput;   
@@ -59,6 +59,7 @@ public class FlaskAuthManager : MonoBehaviour
         else
         {
             // ????????? ?????? ?? ???????
+            Debug.Log(request.downloadHandler.text);
             ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
 
             Debug.Log(request.downloadHandler.text);
@@ -69,6 +70,7 @@ public class FlaskAuthManager : MonoBehaviour
             }
             else
             {
+                SaveUsername(login);
                 SceneManager.LoadScene(walletsUIName);
                 //GetApiData();
             }
@@ -94,6 +96,14 @@ public class FlaskAuthManager : MonoBehaviour
             }
         }
     }
+
+    void SaveUsername(string username)
+    {
+        PlayerPrefs.SetString("Username",username);
+        PlayerPrefs.Save();
+    }
+
+
 
     [System.Serializable]
     public class AuthData

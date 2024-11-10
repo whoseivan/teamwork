@@ -603,8 +603,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d3b4917b7cc42b2b1758126927557f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  authUrl: http://195.2.79.241:5000/api/user_authorize
-  apiUrl: http://195.2.79.241:5000/api/userWallets
+  authUrl: http://195.2.79.241:5000/api_app/user_authorize
+  apiUrl: http://195.2.79.241:5000/api_app/userWallets
   loginInput: {fileID: 2171804197105739070}
   passwordInput: {fileID: 7743836843509044873}
   resultText: {fileID: 0}

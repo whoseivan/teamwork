@@ -632,8 +632,8 @@ MonoBehaviour:
   usernameField: {fileID: 1853350489}
   emailField: {fileID: 435206221}
   passwordField: {fileID: 3389841770310711919}
-  checkUserUrl: http://195.2.79.241:5000/api/check_user
-  registerUrl: http://195.2.79.241:5000/api/user_register
+  checkUserUrl: http://195.2.79.241:5000/api_app/check_user
+  registerUrl: http://195.2.79.241:5000/api_app/user_register
   walletsUIName: WalletsUI
 --- !u!114 &1853350489 stripped
 MonoBehaviour:

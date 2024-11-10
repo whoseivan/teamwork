@@ -18,5 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/WalletsUI.unity
     guid: dc1f488a7f18e2943bce3d388fd20704
   m_configObjects:
+    com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000, guid: 6c70b766e888c4b5b91bb0cb795ccbf3, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: adf9244c45454d344a9791106178eb10, type: 2}
+    com.unity.adaptiveperformance.samsung.android.provider_settings: {fileID: 11400000, guid: 90b30fcf6ac714c88bca4bb497783be7, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: cac6ec16f1113454094b537013cc1faa, type: 2}
