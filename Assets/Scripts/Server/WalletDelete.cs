@@ -10,12 +10,16 @@ public class WalletDelete : MonoBehaviour
 
     public GameObject deletePanel;
 
+    [Header ("UI elements")]
+    public TMP_Text walleteDeleteText;
+
     private int id_wallet;  // ID редактируемого кошелька
 
     // Метод для открытия панели редактирования и заполнения полей
-    public void OpenDeletePanel(int walletId)
+    public void OpenDeletePanel(int walletId, string name)
     {
         id_wallet = walletId;  // Устанавливаем ID кошелька
+        walleteDeleteText.text = "Вы уверены, что хотите удалить кошелек <b>" + name + "</b>?";
         deletePanel.SetActive(true);
     }
 
@@ -52,13 +56,8 @@ public class WalletDelete : MonoBehaviour
         {
             Debug.Log("Wallet deleted " + request.downloadHandler.text);
             GetComponent<GetWallets>().StartGetWalletsData();
-            Invoke("deletePanelHide", 4f);
+            deletePanel.SetActive(false);
         }
-    }
-
-    void deletePanelHide()
-    {
-        deletePanel.SetActive(false);
     }
 
     // Класс данных для JSON

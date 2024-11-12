@@ -28,7 +28,7 @@ public class WalletInfo : MonoBehaviour
     // Метод для вызова редактирования кошелька
     public void OnDeleteButtonPressed()
     {
-        walletDelete.OpenDeletePanel(walletData.id_wallet);
+        walletDelete.OpenDeletePanel(walletData.id_wallet, walletData.name);
     }
 
     [System.Serializable]

@@ -4791,6 +4791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walletsRedactURL: http://195.2.79.241:5000/api_app/delete_wallet
   deletePanel: {fileID: 1115025545}
+  walleteDeleteText: {fileID: 1041396556}
 --- !u!1 &1621563622
 GameObject:
   m_ObjectHideFlags: 0
@@ -6749,7 +6750,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3032947773478256571, guid: 6b786d9ad562e9d45b078cfeb1e8b100, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 242840134209056103, guid: 6b786d9ad562e9d45b078cfeb1e8b100, type: 3}
