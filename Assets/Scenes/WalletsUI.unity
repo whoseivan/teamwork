@@ -1212,6 +1212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c992f8681140f413db86a12018db3736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Url: http://195.2.79.241:5000/api_app/user_deauthorize
 --- !u!114 &340785929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2262,6 +2263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c992f8681140f413db86a12018db3736, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Url: http://195.2.79.241:5000/api_app/user_deauthorize
 --- !u!114 &743214462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4719,7 +4721,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fefb97122187b064fbf5378f3848f4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walletsUrl: http://195.2.79.241:5000/api/userWallets
+  walletsUrl: http://195.2.79.241:5000/api_app/userWallets
   walletsList: []
   walletPrefab: {fileID: 5723510938490901759, guid: f727c77dc97d7154d93e54a366909a9b, type: 3}
   walletsContainer: {fileID: 1110231273}
@@ -4752,7 +4754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ec6586053d26741ab1898fb0a0367e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  createWalletUrl: http://195.2.79.241:5000/api/add_wallet
+  createWalletUrl: http://195.2.79.241:5000/api_app/add_wallet
   walletNameInput: {fileID: 1028532666}
   walletBalanceInput: {fileID: 267385983}
   currencyDropdown: {fileID: 97353933}
@@ -4770,7 +4772,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c31a08784ef484b89baf7682e27caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walletsRedactURL: http://195.2.79.241:5000/api/wallet_edit
+  walletsRedactURL: http://195.2.79.241:5000/api_app/wallet_edit
   walletNameInput: {fileID: 1116991691}
   walletBalanceInput: {fileID: 1100717505}
   currencyDropdown: {fileID: 1386478259}
@@ -4787,7 +4789,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e98f95d99e68040eabf548ca9515a349, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walletsRedactURL: http://195.2.79.241:5000/api/delete_wallet
+  walletsRedactURL: http://195.2.79.241:5000/api_app/delete_wallet
   deletePanel: {fileID: 1115025545}
 --- !u!1 &1621563622
 GameObject:

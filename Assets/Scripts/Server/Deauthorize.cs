@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Deauthorize : MonoBehaviour
 {
-    private const string Url = "http://195.2.79.241:5000/api/user_deauthorize";
+    public string Url = "http://195.2.79.241:5000/api_app/user_deauthorize";
 
     public void StartDeauthorizeRequest()
     {
