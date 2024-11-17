@@ -27,7 +27,7 @@ public class CreateWallet : MonoBehaviour
         // ????????, ??? ??? ???? ?????????
         if (string.IsNullOrEmpty(walletNameInput.text) || string.IsNullOrEmpty(walletBalanceInput.text))
         {
-            statusText.text = "??????????, ????????? ??? ????";
+            //statusText.text = "??????????, ????????? ??? ????";
             return;
         }
 
@@ -42,7 +42,7 @@ public class CreateWallet : MonoBehaviour
         }
         else
         {
-            statusText.text = "???????? ?????? ???????";
+            //statusText.text = "???????? ?????? ???????";
         }
     }
 
@@ -85,14 +85,33 @@ public class CreateWallet : MonoBehaviour
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.LogError("??????: " + request.error);
-            statusText.text = "?????? ??? ???????? ????????: " + request.error;
+            statusText.text = "unavailable";
+            //statusText.text = "?????? ??? ???????? ????????: " + request.error;
         }
         else
         {
-            Debug.Log("Wallet created " + request.downloadHandler.text);
-            GetComponent<GetWallets>().StartGetWalletsData();
-            createWalletpanel.SetActive(false);
+            ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
+
+            Debug.Log(request.downloadHandler.text);
+            Debug.Log(response.existance + " " + response.creation);
+            if (response.existance == "False" || response.creation == "False")
+            {
+                Debug.Log("WalletName unavailable " + request.downloadHandler.text);
+                statusText.text = "unavailable";
+            }
+            else
+            {
+                Debug.Log("Wallet created " + request.downloadHandler.text);
+                GetComponent<GetWallets>().StartGetWalletsData();
+                createWalletpanel.SetActive(false);
+            }
         }
+    }
+
+    public class ServerResponse
+    {
+        public string existance;  // ???? ?????? ?????????? "True" ??? "False" ? ???? ??????
+        public string creation;
     }
 
     // ????? ?????? ??? JSON

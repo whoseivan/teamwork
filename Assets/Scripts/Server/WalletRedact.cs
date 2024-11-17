@@ -91,16 +91,36 @@ public class WalletRedact : MonoBehaviour
         {
             Debug.LogError("Ошибка: " + request.error);
         }
+
         else
         {
-            Debug.Log("Wallet redacted " + request.downloadHandler.text);
-            GetComponent<GetWallets>().StartGetWalletsData();
-            redactPanel.SetActive(false);
+            ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
+
+            Debug.Log(request.downloadHandler.text);
+            Debug.Log(response.existance + " " + response.edition);
+            if (response.existance == "False" || response.edition == "False")
+            {
+                Debug.Log("WalletName unavailable " + request.downloadHandler.text);
+            }
+            else
+            {
+                Debug.Log("Wallet redacted " + request.downloadHandler.text);
+                GetComponent<GetWallets>().StartGetWalletsData();
+                redactPanel.SetActive(false);
+            }
         }
     }
 
-    // Класс данных для JSON
-    [System.Serializable]
+
+[System.Serializable]
+public class ServerResponse
+{
+    public string existance;  // ???? ?????? ?????????? "True" ??? "False" ? ???? ??????
+    public string edition;
+}
+
+// Класс данных для JSON
+[System.Serializable]
     public class WalletData
     {
         public int id_wallet;
