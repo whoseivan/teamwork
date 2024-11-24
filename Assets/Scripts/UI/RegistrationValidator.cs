@@ -30,49 +30,49 @@ public class RegistrationValidator : MonoBehaviour
 
     private void Start()
     {
-        // Начальное состояние кнопки
+        // ????????? ????????? ??????
         registerButton.interactable = false;
         registerButton.image.sprite = invalidInputSprite;
 
-        // Добавляем слушатели для проверки каждого поля по завершению редактирования
+        // ????????? ????????? ??? ???????? ??????? ???? ?? ?????????? ??????????????
         loginInput.onEndEdit.AddListener(delegate { ValidateLoginInput(); });
         emailInput.onEndEdit.AddListener(delegate { ValidateEmailInput(); });
         passwordInput.onEndEdit.AddListener(delegate { ValidatePasswordInput(); });
 
-        // Скрываем сообщения об ошибках
+        // ???????? ????????? ?? ???????
         ClearErrorMessages();
     }
 
     private void ValidateLoginInput()
     {
         isLoginValid = ValidateLogin(loginInput.text);
-        UpdateInputField(loginInput, isLoginValid, loginErrorText, "Логин должен быть от 6 до 30 символов");
+        UpdateInputField(loginInput, isLoginValid, loginErrorText, "????? ?????? ????????? ?? 6 ?? 30 ????????");
         UpdateRegisterButtonState();
     }
 
     private void ValidateEmailInput()
     {
         isEmailValid = ValidateEmail(emailInput.text);
-        UpdateInputField(emailInput, isEmailValid, emailErrorText, "Некорректный формат почты");
+        UpdateInputField(emailInput, isEmailValid, emailErrorText, "????? ??????? ???????????");
         UpdateRegisterButtonState();
     }
 
     private void ValidatePasswordInput()
     {
         isPasswordValid = ValidatePassword(passwordInput.text);
-        UpdateInputField(passwordInput, isPasswordValid, passwordErrorText, "Пароль должен быть от 6 до 30 символов, содержать заглавную букву, цифру и спецсимвол");
+        UpdateInputField(passwordInput, isPasswordValid, passwordErrorText, "?????? ?????? ????????? ?? 6 ?? 30 ????????, ????????? ?????, ????? ? ??????");
         UpdateRegisterButtonState();
     }
 
     private void UpdateInputField(TMP_InputField inputField, bool isValid, TMP_Text errorText, string errorMessage)
     {
         inputField.image.color = isValid ? validColor : invalidColor;
-        errorText.text = isValid ? "" : errorMessage;
+        errorText.text = errorMessage;
     }
 
     private void UpdateRegisterButtonState()
     {
-        // Кнопка активна только если все поля валидны
+        // ?????? ??????? ?????? ???? ??? ???? ???????
         bool areAllValid = isLoginValid && isEmailValid && isPasswordValid;
         registerButton.interactable = areAllValid;
         registerButton.image.sprite = areAllValid ? validInputSprite : invalidInputSprite;

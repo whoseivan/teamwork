@@ -103,6 +103,8 @@ public class CreateWallet : MonoBehaviour
             {
                 Debug.Log("Wallet created " + request.downloadHandler.text);
                 GetComponent<GetWallets>().StartGetWalletsData();
+                walletNameInput.text = "";
+                walletBalanceInput.text = "0.00";
                 createWalletpanel.SetActive(false);
             }
         }

@@ -21,12 +21,12 @@ public class RegistrationManager : MonoBehaviour
 
     private void Start()
     {
-        // Добавляем обработчики для очистки сообщения об ошибке при изменении полей
+        // ????????? ??????????? ??? ??????? ????????? ?? ?????? ??? ????????? ?????
         usernameField.onValueChanged.AddListener(delegate { ClearErrorText(); });
         emailField.onValueChanged.AddListener(delegate { ClearErrorText(); });
     }
 
-    // Проверка логина и почты на сервере
+    // ???????? ?????? ? ????? ?? ???????
     public void CheckUser()
     {
         string username = usernameField.text;
@@ -35,7 +35,7 @@ public class RegistrationManager : MonoBehaviour
         StartCoroutine(SendCheckRequest(username, email));
     }
 
-    // Отправка запроса на проверку наличия логина и почты
+    // ???????? ??????? ?? ???????? ??????? ?????? ? ?????
     private IEnumerator SendCheckRequest(string username, string email)
     {
         var jsonData = new UserData
@@ -52,22 +52,25 @@ public class RegistrationManager : MonoBehaviour
         request.uploadHandler = new UploadHandlerRaw(bodyRaw);
         request.downloadHandler = new DownloadHandlerBuffer();
 
+        Debug.Log(json);
+
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.LogError("Ошибка запроса: " + request.error);
+            Debug.LogError("?????? ???????: " + request.error);
         }
         else
         {
             ServerResponse response = JsonUtility.FromJson<ServerResponse>(request.downloadHandler.text);
+            Debug.Log(response.login + " " + response.email);
             if (response.login == "False")
             {
-                errorText.text = "Имя пользователя занято!";
+                errorText.text = "??? ???????????? ??????!";
             }
             else if (response.email == "False")
             {
-                errorText.text = "Адрес почты занят!";
+                errorText.text = "????? ????? ?????!";
             }
             else
             {
@@ -76,13 +79,13 @@ public class RegistrationManager : MonoBehaviour
         }
     }
 
-    // Регистрация нового пользователя
+    // ??????????? ?????? ????????????
     public void RegisterUser(string username, string email, string password)
     {
         StartCoroutine(SendRegisterRequest(username, email, password));
     }
 
-    // Отправка данных для регистрации
+    // ???????? ?????? ??? ???????????
     private IEnumerator SendRegisterRequest(string username, string email, string password)
     {
         var jsonData = new RegistrationData
@@ -104,7 +107,7 @@ public class RegistrationManager : MonoBehaviour
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
         {
-            Debug.LogError("Ошибка: " + request.error);
+            Debug.LogError("??????: " + request.error);
         }
         else
         {
@@ -113,7 +116,7 @@ public class RegistrationManager : MonoBehaviour
         }
     }
 
-    // Очистка текста ошибки при редактировании полей
+    // ??????? ?????? ?????? ??? ?????????????? ?????
     private void ClearErrorText()
     {
         errorText.text = "";
@@ -125,7 +128,7 @@ public class RegistrationManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    // Классы для JSON данных
+    // ?????? ??? JSON ??????
     [System.Serializable]
     public class UserData
     {
